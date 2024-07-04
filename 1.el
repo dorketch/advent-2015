@@ -1,12 +1,16 @@
-;; compter les parentheses
+;; Compter les parentheses
+;; ***********************
+;; On ouvre le fichier dans un buffer temporaire pour ne pas polluer notre buffer principale. Ensuite on utilise la fonction count-matches qui compte le nombre d'occurence d'une expression régulière. On soustrait val1 et val2 puis on obtient le résultat 232.
 
-(defun read-file (filePath)
-  "Lire le contenu d'un fichier et le mettre dans un buffer hors du fichier. Utilise le fonction insert-file-contents ainsi que la fonction with-temp-buffer. Prends un seul argument qui est le nom et chemin d'acces du fichier."
-  (with-temp-buffer
-    (insert-file-contents filePath)
-    (buffer-string)))
-
-
-(setq banane (read-file "input1.txt"))
-(print banane)
+(with-temp-buffer
+  (insert-file-contents "input/1.txt")
+  (setq val1 (count-matches "("
+		 (point-min)
+		 (point-max)
+		 nil))
+  (setq val2 (count-matches ")"
+		 (point-min)
+		 (point-max)
+		 nil)))
+(- val1 val2)
 
